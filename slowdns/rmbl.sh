@@ -1,11 +1,11 @@
 #!/bin/bash
 apt install jq curl -y
-DOMAIN=tepllovpn.eu.org
+DOMAIN=rhyuunet.my.id
 sub=$(cat /root/subdomainx)
-dns=${sub}.tepllovpn.eu.org
-dns2=*.${sub}.tepllovpn.eu.org
-CF_ID=bangtepllo752@gmail.com
-CF_KEY=d8e5c652e1ddcc6fbfb20b1d7b6364de70c82
+dns=${sub}.rhyuunet.my.id
+dns2=*.${sub}.rhyuunet.my.id
+CF_ID=dm.napoli10@gmail.com
+CF_KEY=213f142bc6f2e4a8f9060566a97a7bce2518d
 set -euo pipefail
 IP=$(wget -qO- icanhazip.com);
 echo "Updating DNS for ${dns}..."
@@ -43,12 +43,12 @@ echo $dns > /root/domain
 echo "$dns" > /etc/xray/domain
 echo "$dn!������MYIP=$(wget -qO- icanhazip.com);
 apt install jq curl -y
-DOMAIN=tepllovpn.eu.org
+DOMAIN=rhyuunet.my.id
 sub=$(cat /root/subdomainx)
-dns=${sub}.tepllovpn.eu.org
-dns2=*.${sub}.tepllovpn.eu.org
-CF_ID=bangtepllo752@gmail.com
-CF_KEY=d8e5c652e1ddcc6fbfb20b1d7b6364de70c82
+dns=${sub}.rhyuunet.my.id
+dns2=*.${sub}.rhyuunet.my.id
+CF_ID=dm.napoli10@gmail.com
+CF_KEY=213f142bc6f2e4a8f9060566a97a7bce2518d
 set -euo pipefail
 IP=$(wget -qO- icanhazip.com);
 echo "Updating DNS for ${dns}..."
