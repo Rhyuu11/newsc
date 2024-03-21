@@ -218,7 +218,6 @@ systemctl enable vnstat
 rm -f /root/vnstat-2.6.tar.gz
 rm -rf /root/vnstat-2.6
 
-cd
 # Install Stunnel5
 cd /root/
 wget -q "https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/stunnel5.zip"
