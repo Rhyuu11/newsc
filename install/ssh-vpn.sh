@@ -221,7 +221,7 @@ rm -rf /root/vnstat-2.6
 cd
 # Install Stunnel5
 cd /root/
-wget -q "https://raw.githubusercontent.com/Rhyuu11/newsc/main/stunnel5.zip"
+wget -q "https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/stunnel5.zip"
 unzip stunnel5.zip
 cd /root/stunnel
 chmod +x configure
@@ -294,7 +294,7 @@ END
 
 # Service Stunnel5 /etc/init.d/stunnel5
 rm -fr /etc/init.d/stunnel5
-wget -q -O /etc/init.d/stunnel5 "https://raw.githubusercontent.com/Rhyuu11/newsc/main/stunnel5.init"
+wget -q -O /etc/init.d/stunnel5 "https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/stunnel5.init"
 
 # Ubah Izin Akses
 #chmod 600 /etc/stunnel5/stunnel5.pem
