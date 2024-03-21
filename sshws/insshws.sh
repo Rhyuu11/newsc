@@ -8,7 +8,7 @@ wget -O /usr/local/bin/ws-dropbear https://raw.githubusercontent.com/Rhyuu11/new
 chmod +x /usr/local/bin/ws-dropbear
 
 # Installing Service
-cat > /etc/systemd/system/ws-nontls.service << END
+cat > /etc/systemd/system/ws-dropbear.service << END
 [Unit]
 Description=Python Proxy Mod By SFVPNVPN 
 Documentation=https://t.me/abecasdee13
