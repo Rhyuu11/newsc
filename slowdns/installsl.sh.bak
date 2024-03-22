@@ -1,7 +1,7 @@
 #!/bin/sh
 ns_domain_cloudflare() {
  DOMAIN="rhyuunet.my.id"
- DOMAIN_PATH=$(cat /etc/xray/dns)
+ DOMAIN_PATH=$(cat /etc/xray/domain)
  SUB=$(tr </dev/urandom -dc a-z0-9 | head -c7)
  SUB_DOMAIN=${SUB}".rhyuunet.my.id"
  NS_DOMAIN=ns.${SUB_DOMAIN}
