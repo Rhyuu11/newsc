@@ -685,7 +685,7 @@ clear
 }
 
 res8() {
-wget https://raw.githubusercontent.com/Rhyuu11/newsc/main/slowdns/installsl.sh && chmod +x installsl.sh && ./installsl.sh
+wget https://raw.githubusercontent.com/Rhyuu11/newsc/main/slowdns/installsl.sh && chmod +x installsl.sh && bash installsl.sh
 clear
 }
 
