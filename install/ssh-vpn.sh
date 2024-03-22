@@ -242,11 +242,11 @@ socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
 
 [openssh]
-accept = 8880
+accept = 444
 connect = 127.0.0.1:22
 
 [dropbear]
-accept = 8443
+accept = 777
 connect = 127.0.0.1:109
 
 [openvpn]
