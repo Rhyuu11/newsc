@@ -547,7 +547,7 @@ echo -e  "${BIBlue}│                \033[1;37mDARI SAYA                 ${BIBl
 echo -e  "${BIBlue}╰══════════════════════════════════════════╯${NC}"
 echo " "
 until [[ $dns2 =~ ^[a-zA-Z0-9_.-]+$ ]]; do
-read -rp "Masukan Domain SlowDNS kamu Disini : " -e dns2
+read -rp "suyu.rhyuunet.my.id: " -e dns2
 done
 echo $dns2 >/etc/xray/dns
 fi
