@@ -48,6 +48,7 @@ SysVStartPriority=99
 WantedBy=multi-user.target
 END
 
+
 # nano /etc/rc.local
 cat > /etc/rc.local <<-END
 #!/bin/sh -e
@@ -74,89 +75,73 @@ apt dist-upgrade -y
 apt-get remove --purge ufw firewalld -y
 apt-get remove --purge exim4 -y
 
-#install jq
-apt -y install jq
-
-#install shc
-apt -y install shc
-
 # install wget and curl
 apt -y install wget curl
+apt -y install python
 
-#figlet
-apt-get install figlet -y
-apt-get install ruby -y
+# install python
+cd
+apt -y install ruby
 gem install lolcat
+apt -y install figlet
 
 # set time GMT +7
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
-# set locale
-sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 
-# // install
+# install
 apt-get --reinstall --fix-missing install -y bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl neofetch git lsof
 echo "clear" >> .profile
-echo "menu" >> .profile
+echo "neofetch" >> .profile
+echo "echo by HideSSH.com" >> .profile
+echo "echo Ketik menu" >> .profile
 
-install_ssl(){
-    if [ -f "/usr/bin/apt-get" ];then
-            isDebian=`cat /etc/issue|grep Debian`
-            if [ "$isDebian" != "" ];then
-                    apt-get install -y nginx certbot
-                    apt install -y nginx certbot
-                    sleep 3s
-            else
-                    apt-get install -y nginx certbot
-                    apt install -y nginx certbot
-                    sleep 3s
-            fi
-    else
-        yum install -y nginx certbot
-        sleep 3s
-    fi
+# Install Requirements Tools
+apt install ruby -y
+apt install cowsay -y
+apt install python -y
+apt install make -y
+apt install cmake -y
+apt install coreutils -y
+apt install rsyslog -y
+apt install jq -y
+apt install apt-transport-https -y
+apt install build-essential -y
+apt install dirmngr -y
+apt install libxml-parser-perl -y
+apt install neofetch -y
+apt install git -y
+apt install lsof -y
+apt install libsqlite3-dev -y
+apt install libz-dev -y
+apt install gcc -y
+apt install g++ -y
+apt install libreadline-dev -y
+apt install zlib1g-dev -y
+apt install libssl-dev -y
+apt install libssl1.0-dev -y
+apt install dos2unix -y
 
-    systemctl stop nginx.service
+#tambahan package nettools
+cd
+apt-get install dnsutils jq -y
+apt-get install net-tools -y
+apt-get install tcpdump -y
+apt-get install dsniff -y
+apt-get install grepcidr -y
 
-    if [ -f "/usr/bin/apt-get" ];then
-            isDebian=`cat /etc/issue|grep Debian`
-            if [ "$isDebian" != "" ];then
-                    echo "A" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
-                    sleep 3s
-            else
-                    echo "A" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
-                    sleep 3s
-            fi
-    else
-        echo "Y" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
-        sleep 3s
-    fi
-}
+#hapus apache
+apt-get remove apache2 -y
+apt-get purge apache2* -y
 
-
-# install webserver
-apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
-rm /etc/nginx/sites-enabled/default
-rm /etc/nginx/sites-available/default
-curl https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/nginx.conf > /etc/nginx/nginx.conf
-curl https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/vps.conf > /etc/nginx/conf.d/vps.conf
-sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
-useradd -m vps;
-mkdir -p /home/vps/public_html
-echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
-chown -R www-data:www-data /home/vps/public_html
-chmod -R g+rw /home/vps/public_html
-cd /home/vps/public_html
-wget -O /home/vps/public_html/index.html "https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/index.html1"
-/etc/init.d/nginx restart
 # install webserver
 apt -y install nginx
 cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/nginx.conf"
+wget -O /etc/nginx/nginx.conf "https://gitlab.com/hidessh/baru/-/raw/main/nginx.conf"
 mkdir -p /home/vps/public_html
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/vps.conf"
+wget -O /etc/nginx/conf.d/vps.conf "https://gitlab.com/hidessh/baru/-/raw/main/vps.conf"
 /etc/init.d/nginx restart
 
 # install badvpn
