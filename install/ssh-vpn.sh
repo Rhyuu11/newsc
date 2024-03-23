@@ -90,58 +90,60 @@ ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
 
 # install
+# // install
 apt-get --reinstall --fix-missing install -y bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl neofetch git lsof
 echo "clear" >> .profile
-echo "neofetch" >> .profile
-echo "echo by HideSSH.com" >> .profile
-echo "echo Ketik menu" >> .profile
+echo "menu" >> .profile
 
-# Install Requirements Tools
-apt install ruby -y
-apt install cowsay -y
-apt install python -y
-apt install make -y
-apt install cmake -y
-apt install coreutils -y
-apt install rsyslog -y
-apt install jq -y
-apt install apt-transport-https -y
-apt install build-essential -y
-apt install dirmngr -y
-apt install libxml-parser-perl -y
-apt install neofetch -y
-apt install git -y
-apt install lsof -y
-apt install libsqlite3-dev -y
-apt install libz-dev -y
-apt install gcc -y
-apt install g++ -y
-apt install libreadline-dev -y
-apt install zlib1g-dev -y
-apt install libssl-dev -y
-apt install libssl1.0-dev -y
-apt install dos2unix -y
+install_ssl(){
+    if [ -f "/usr/bin/apt-get" ];then
+            isDebian=`cat /etc/issue|grep Debian`
+            if [ "$isDebian" != "" ];then
+                    apt-get install -y nginx certbot
+                    apt install -y nginx certbot
+                    sleep 3s
+            else
+                    apt-get install -y nginx certbot
+                    apt install -y nginx certbot
+                    sleep 3s
+            fi
+    else
+        yum install -y nginx certbot
+        sleep 3s
+    fi
 
-#tambahan package nettools
-cd
-apt-get install dnsutils jq -y
-apt-get install net-tools -y
-apt-get install tcpdump -y
-apt-get install dsniff -y
-apt-get install grepcidr -y
+    systemctl stop nginx.service
 
-#hapus apache
-apt-get remove apache2 -y
-apt-get purge apache2* -y
+    if [ -f "/usr/bin/apt-get" ];then
+            isDebian=`cat /etc/issue|grep Debian`
+            if [ "$isDebian" != "" ];then
+                    echo "A" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
+                    sleep 3s
+            else
+                    echo "A" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
+                    sleep 3s
+            fi
+    else
+        echo "Y" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
+        sleep 3s
+    fi
+}
+
 
 # install webserver
-apt -y install nginx
-cd
+apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://gitlab.com/hidessh/baru/-/raw/main/nginx.conf"
+curl https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/nginx.conf > /etc/nginx/nginx.conf
+curl https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/vps.conf > /etc/nginx/conf.d/vps.conf
+sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
+useradd -m vps;
 mkdir -p /home/vps/public_html
-wget -O /etc/nginx/conf.d/vps.conf "https://gitlab.com/hidessh/baru/-/raw/main/vps.conf"
+echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
+chown -R www-data:www-data /home/vps/public_html
+chmod -R g+rw /home/vps/public_html
+cd /home/vps/public_html
+wget -O /home/vps/public_html/index.html "https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/index.html1"
 /etc/init.d/nginx restart
 
 # install badvpn
@@ -236,11 +238,11 @@ socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
 
 [openssh]
-accept = 777
+accept = 8880
 connect = 127.0.0.1:22
 
 [dropbear]
-accept = 447
+accept = 8443
 connect = 127.0.0.1:109
 
 [openvpn]
@@ -259,13 +261,6 @@ cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 /etc/init.d/stunnel4 restart
 
-cd
-#install sslh
-apt-get install sslh -y
-#konfigurasi
-#port 333 to 44 and 777
-wget -O /etc/default/sslh "https://gitlab.com/hidessh/baru/-/raw/main/SSLH/sslh.conf"
-service sslh restart
 
 #OpenVPN
 wget https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
