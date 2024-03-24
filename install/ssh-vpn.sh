@@ -237,7 +237,7 @@ socket = a:SO_REUSEADDR=1
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
 
-[openssh]
+[dropbear]
 accept = 777
 connect = 127.0.0.1:22
 
@@ -261,6 +261,13 @@ cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 /etc/init.d/stunnel4 restart
 
+cd
+#install sslh
+apt-get install sslh -y
+#konfigurasi
+#port 333 to 44 and 777
+wget -O /etc/default/sslh "https://gitlab.com/hidessh/baru/-/raw/main/SSLH/sslh.conf"
+service sslh restart
 
 #OpenVPN
 wget https://raw.githubusercontent.com/Rhyuu11/newsc/main/install/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
